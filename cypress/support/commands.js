@@ -1,7 +1,7 @@
 import LoginPage from '../pages/LoginPage'
 
-const USER = Cypress.env('username');
-const PASS = Cypress.env('password');
+const USER = Cypress.env('adminUser');
+const PASS = Cypress.env('adminPass');
 
 Cypress.Commands.add('login', (username = USER, password = PASS) => {
   LoginPage.visit();
