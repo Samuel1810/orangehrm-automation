@@ -1,0 +1,53 @@
+name: E2E • OrangeHRM (Cypress + Mochawesome)
+
+on:
+  push: { branches: [ main ] }
+  pull_request: { branches: [ main ] }
+
+jobs:
+  e2e:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: 'npm'
+
+      - name: Install deps
+        run: npm ci
+
+      # Runs Cypress using GitHub Actions official action
+      - name: Run Cypress (Chrome headless)
+        uses: cypress-io/github-action@v5
+        with:
+          browser: chrome
+        env:
+          CYPRESS_baseUrl: ${{ secrets.ORANGEHRM_BASE_URL }}
+          CYPRESS_adminUser: ${{ secrets.ORANGEHRM_ADMIN_USER }}
+          CYPRESS_adminPass: ${{ secrets.ORANGEHRM_ADMIN_PASS }}
+
+      # Mochawesome reports (JSON -> HTML)
+      - name: Merge & generate Mochawesome
+        run: |
+          npx mochawesome-merge cypress/reports/*.json > mochawesome-merged.json || true
+          npx marge mochawesome-merged.json --reportDir mochawesome-report || true
+
+      # Upload videos, screenshots and reports as artifacts
+      - name: Upload artifacts (videos, screenshots, report)
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: cypress-artifacts
+          path: |
+            cypress/videos
+            cypress/screenshots
+            cypress/reports
+            mochawesome-merged.json
+            mochawesome-report
+          retention-days: 7
