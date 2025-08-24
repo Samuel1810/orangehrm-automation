@@ -1,6 +1,7 @@
 name: E2E • OrangeHRM (Cypress + Mochawesome)
 
 on:
+  workflow_dispatch: {}            
   push: { branches: [ main ] }
   pull_request: { branches: [ main ] }
 
@@ -20,25 +21,35 @@ jobs:
           cache: 'npm'
 
       - name: Install deps
-        run: npm ci
+        run: npm ci || npm install
 
-      # Runs Cypress using GitHub Actions official action
+      - name: Cache Cypress binary
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/Cypress
+          key: ${{ runner.os }}-cypress-${{ hashFiles('package-lock.json') }}
+
+      # ── TESTES (Cypress + Mochawesome) ─────────────────────────────────────
       - name: Run Cypress (Chrome headless)
-        uses: cypress-io/github-action@v5
+        uses: cypress-io/github-action@v6
         with:
           browser: chrome
+          # spec: cypress/e2e/auth/TC001-successful-login.cy.js   # <- use p/ sanity
+          # command: npx cypress run --browser chrome             
+          # optional
         env:
           CYPRESS_baseUrl: ${{ secrets.ORANGEHRM_BASE_URL }}
           CYPRESS_adminUser: ${{ secrets.ORANGEHRM_ADMIN_USER }}
           CYPRESS_adminPass: ${{ secrets.ORANGEHRM_ADMIN_PASS }}
 
-      # Mochawesome reports (JSON -> HTML)
+      # ── REPORT (Mochawesome JSON → HTML) ──────────────────────────────
       - name: Merge & generate Mochawesome
+        if: always()
         run: |
-          npx mochawesome-merge cypress/reports/*.json > mochawesome-merged.json || true
+          npx mochawesome-merge "cypress/reports/**/*.json" > mochawesome-merged.json || true
           npx marge mochawesome-merged.json --reportDir mochawesome-report || true
 
-      # Upload videos, screenshots and reports as artifacts
+      # ── ARTEFACTS (vIdeos, prints, reports) ───────────────────────────
       - name: Upload artifacts (videos, screenshots, report)
         if: always()
         uses: actions/upload-artifact@v4
