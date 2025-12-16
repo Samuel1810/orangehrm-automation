@@ -4,6 +4,29 @@ This project contains End-to-End automated tests using [Cypress](https://www.cyp
 
 ---
 
+## Why this project exists
+This project exists to demonstrate my approach as a QA Engineer when validating a real-world HR management system.
+Instead of focusing on quantity, the goal is to showcase **test design, documentation, and conscious automation decisions**
+using Cypress and JavaScript.
+
+## What this project proves
+- **Risk-based test design:** scenarios focus on core business flows (authentication and employee management via PIM).
+- **Documentation-first QA mindset:** every automated test is backed by written test cases
+  (traditional and Gherkin), available under `/docs/test-cases/`.
+- **Automation as a tool, not a goal:** only high-value, stable scenarios were automated to maximize ROI.
+- **Maintainable E2E structure:** clear test naming, reusable patterns, and fast local execution.
+
+## Out of scope (intentional)
+To keep the project focused and realistic, the following were intentionally left out:
+- Full regression coverage of all OrangeHRM modules.
+- Cross-browser and mobile testing.
+- Performance, security, and accessibility testing.
+- Complex edge cases unrelated to the main business flows.
+
+These areas could be explored in a different type of test initiative, depending on project needs.
+
+---
+
 ## Implemented Scenarios
 
 ### ✅ Positive
