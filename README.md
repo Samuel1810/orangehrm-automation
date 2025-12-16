@@ -1,6 +1,7 @@
 # OrangeHRM Cypress Automation Tests
 
-This project contains End-to-End automated tests using [Cypress](https://www.cypress.io/) for the [OrangeHRM Demo](https://opensource-demo.orangehrmlive.com/) website.
+This repository showcases End-to-End automated tests built with [Cypress](https://www.cypress.io/)
+to validate critical business flows of the [OrangeHRM Demo](https://opensource-demo.orangehrmlive.com/) application.
 
 ---
 
@@ -16,12 +17,15 @@ using Cypress and JavaScript.
 - **Automation as a tool, not a goal:** only high-value, stable scenarios were automated to maximize ROI.
 - **Maintainable E2E structure:** clear test naming, reusable patterns, and fast local execution.
 
+  > **Evidence:** Automated specs, Gherkin scenarios, and traditional test cases are all linked and maintained together.
+
 ## Out of scope (intentional)
 To keep the project focused and realistic, the following were intentionally left out:
 - Full regression coverage of all OrangeHRM modules.
 - Cross-browser and mobile testing.
 - Performance, security, and accessibility testing.
 - Complex edge cases unrelated to the main business flows.
+- Exploratory testing sessions and usability assessments (typically executed manually).
 
 These areas could be explored in a different type of test initiative, depending on project needs.
 
