@@ -18,6 +18,8 @@ using Cypress and JavaScript.
 - **Maintainable E2E structure:** clear test naming, reusable patterns, and fast local execution.
 
   > **Evidence:** Automated specs, Gherkin scenarios, and traditional test cases are all linked and maintained together.
+  > **📌 Coverage** Map: see [`docs/coverage/coverage-map.md`](docs/coverage/coverage-map.md)
+
 
 ## Out of scope (intentional)
 To keep the project focused and realistic, the following were intentionally left out:
