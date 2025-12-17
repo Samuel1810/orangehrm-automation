@@ -110,7 +110,13 @@ git clone https://github.com/Samuel1810/orangehrm-automation.git
 cd orangehrm-cypress-tests
 ```
 ### 2. Install dependencies
-    npm install
+
+```bash
+npm ci
+```
+
+> `npm ci` is recommended to ensure a clean and reproducible install.
+
 ### 3. Create cypress.env.json for local creds
     { "username": "Admin", "password": "admin123" }
 ### 4. Open Cypress Test Runner (interactive)
