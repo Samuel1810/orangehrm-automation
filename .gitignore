@@ -8,3 +8,7 @@ cypress/screenshots/
 # Env
 .env
 cypress.env.json
+
+# macOS
+.DS_Store
+
